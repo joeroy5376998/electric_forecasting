@@ -18,7 +18,7 @@ def moving_avg(self,data):
  day = 7
  avg = []
  for i in range(day,data.shape[0]-day):
-   avg.append(data.iloc[i-day:i,:].mean())
+  avg.append(data.iloc[i-day:i,:].mean())
  return avg
 ```
 3. Split training and validation set
