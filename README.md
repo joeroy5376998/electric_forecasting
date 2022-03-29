@@ -1,5 +1,11 @@
 # electric_forecasting
 Electric Forecasting (DSAI HW1)
+## Data
+Features:
+1. Operating reserve
+2. Percent operating reserve
+3. Highest temperature of Taipei
+4. Hghest temperature of Kaohsiung 
 ## Data Preprocessing
 1. Normalization
 Use sklearn.preprocessing.MinMaxScaler to normalize the data. The MinMaxScaler fit the data into range [1,0].
