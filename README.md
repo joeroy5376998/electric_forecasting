@@ -13,7 +13,9 @@ Use sklearn.preprocessing.MinMaxScaler to normalize the data. The MinMaxScaler f
 sc = MinMaxScaler(feature_range=(0,1))
 data = sc.fit_transform(data)
 ```
+
 ![MinMaxScaler](https://raw.githubusercontent.com/chenkenanalytic/img/master/tm-01/f02.png)
+
 Since the output also in range [0,1], we inverse the scale of output to fit the original data.
 ```python
 data = sc.inverse_transform(data)
