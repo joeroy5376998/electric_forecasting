@@ -9,11 +9,13 @@ Features:
 ## Data Preprocessing
 1. Normalization
 Use sklearn.preprocessing.MinMaxScaler to normalize the data. The MinMaxScaler fit the data into range [1,0].
-![MinMaxScaler](https://raw.githubusercontent.com/chenkenanalytic/img/master/tm-01/f02.png)
 ```python
 sc = MinMaxScaler(feature_range=(0,1))
 data = sc.fit_transform(data)
 ```
+
+![MinMaxScaler](https://raw.githubusercontent.com/chenkenanalytic/img/master/tm-01/f02.png)
+
 Since the output also in range [0,1], we inverse the scale of output to fit the original data.
 ```python
 data = sc.inverse_transform(data)
@@ -32,17 +34,19 @@ def moving_avg(self,data):
 ## Model
 Use LSTM as training model. Below is the architecture of LSTM:
 ```python
+# model
 self.model = Sequential()
 self.model.add(LSTM(128, activation = "relu", return_sequences = True, input_shape = (X_train.shape[1], self.feature_num)))
+self.model.add(Dropout(0.2))
 self.model.add(LSTM(128, activation = "relu", return_sequences = True))
 self.model.add(Dropout(0.2))
-self.model.add(LSTM(128, activation = "relu"))
-self.model.add(Dropout(0.2))
-self.model.add((Dense(1)))
+self.model.add(LSTM(128, activation = "relu", return_sequences = True))
+self.model.add(TimeDistributed(Dense(1)))
+# optimizer
 opt = keras.optimizers.Adam(learning_rate=LR)
 self.model.compile(optimizer = opt, loss = 'mse')
 self.model.summary()
-callback = EarlyStopping(monitor="val_loss", patience=5, verbose=1, mode="auto")
+callback = EarlyStopping(monitor="val_loss", patience=10, verbose=1, mode="auto")
 history = self.model.fit(X_train, y_train, epochs = epoch, batch_size = 1, validation_data=(X_val, y_val), callbacks=[callback])
 ```
 1. Add dropout layers to avoid overfitting
