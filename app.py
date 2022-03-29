@@ -143,8 +143,7 @@ class Model():
 
       # write the result into csv file
       output = pd.DataFrame()
-      #time_range = pd.data_range('20220329',periods=16,freq='D')
-      time_range = pd.date_range('20220313',periods=16,freq='D')
+      time_range = pd.data_range('20220330',periods=self.n_timestamp-1,freq='D')
       output['date'] = time_range
       output['operating_reserve(MW)'] = predict_descale
       # 僅保留 3/30 以後的預測結果
