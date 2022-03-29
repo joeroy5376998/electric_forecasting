@@ -19,7 +19,7 @@ class Model():
 
     # train
     def train(self, data):
-        epoch = 100
+        epoch = 2
         self.n_timestamp = 16 # 每次訓練的資料數目
         self.n_predict = self.n_timestamp # 每次預測的資料數目
         self.label = pd.DataFrame(data["備轉容量(萬瓩)"]) # 把 label (備轉容量) 獨立出來
@@ -106,7 +106,6 @@ class Model():
       output = pd.DataFrame()
       time_range = pd.date_range('20220330',periods=self.n_timestamp-1,freq='D')
       output['date'] = time_range
-      # 僅保留 3/30 以後的預測結果
       output['operating_reserve(MW)'] = predict_descale[1:]
       return output
 
@@ -196,5 +195,5 @@ if __name__ == '__main__':
     df_training = pd.read_csv(args.training)
     model = Model()
     model.train(df_training)
-    y, df_result = model.predict()
+    df_result = model.predict()
     df_result.to_csv(args.output, index=0)
