@@ -132,14 +132,6 @@ class Model():
       # descaled
       predict_descale = self.labelsc.inverse_transform(predict_y[0])
       real = self.label.iloc[len(self.label)-self.n_timestamp:,0].values
-      
-      # Visualising the results
-      plt.plot(real, label = 'Real')
-      plt.plot(predict_descale, label = 'Predicted')
-      plt.xlabel('Time')
-      plt.ylabel('Operating reserve')
-      plt.legend()
-      plt.show()
 
       # write the result into csv file
       output = pd.DataFrame()
