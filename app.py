@@ -19,7 +19,7 @@ class Model():
 
     # train
     def train(self, data):
-        epoch = 2
+        epoch = 100
         self.n_timestamp = 16 # 每次訓練的資料數目
         self.n_predict = self.n_timestamp # 每次預測的資料數目
         self.label = pd.DataFrame(data["備轉容量(萬瓩)"]) # 把 label (備轉容量) 獨立出來
@@ -101,48 +101,14 @@ class Model():
       # descaled
       predict_descale = self.labelsc.inverse_transform(predict_y[0])
       real = self.label.iloc[len(self.label)-self.n_timestamp:,0].values
+      
 
       # write the result into csv file
       output = pd.DataFrame()
       time_range = pd.date_range('20220330',periods=self.n_timestamp-1,freq='D')
       output['date'] = time_range
       output['operating_reserve(MW)'] = predict_descale[1:]
-      return output
-
-
-
-    # test
-    def predict(self):
-      
-      X_test = self.test_data
-      y_test = self.test_data[0]
-      
-      '''
-      for i in range(self.n_timestamp,len(self.data)-self.n_predict):
-        X_test.append(self.data[i-self.n_timestamp:i,0]) # 取預測點前n_timestamp天資料
-        y_test.append(self.data[i:i+self.n_predict,0]) # 預測點
-      '''
-
-      # 轉成 numpy array
-      X_test = np.array([X_test])
-
-      X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], self.feature_num))
-      predict_y = self.model.predict(X_test)
-      
-      # descaled
-      predict_descale = self.labelsc.inverse_transform(predict_y[0])
-      real = self.label.iloc[len(self.label)-self.n_timestamp:,0].values
-
-      # write the result into csv file
-      output = pd.DataFrame()
-      time_range = pd.data_range('20220330',periods=self.n_timestamp-1,freq='D')
-      output['date'] = time_range
-      output['operating_reserve(MW)'] = predict_descale
-      # 僅保留 3/30 以後的預測結果
-      # -------- todo -------------
-
-      # output submission.csv
-      output.to_csv('submission.csv', index=False)      
+          
       return output
     
 
