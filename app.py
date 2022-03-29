@@ -153,7 +153,7 @@ class Model():
 
       # output submission.csv
       output.to_csv('submission.csv', index=False)      
-      return real, predict_descale
+      return output
     
 
 # You can write code above the if-main block.
