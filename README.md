@@ -32,5 +32,13 @@ self.model.add(Dropout(0.2))
 self.model.add(LSTM(128, activation = "relu"))
 self.model.add(Dropout(0.2))
 self.model.add((Dense(1)))
+opt = keras.optimizers.Adam(learning_rate=LR)
+self.model.compile(optimizer = opt, loss = 'mse')
+self.model.summary()
+callback = EarlyStopping(monitor="val_loss", patience=5, verbose=1, mode="auto")
+history = self.model.fit(X_train, y_train, epochs = epoch, batch_size = 1, validation_data=(X_val, y_val), callbacks=[callback])
 ```
-Add dropout layers to avoid overfitting. 
+1. Add dropout layers to avoid overfitting
+2. Use Adam optimizer 
+3. Apply early stopping by monitor validation loss to avoid over training
+4. Store the trainging history to trace training result
