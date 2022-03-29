@@ -9,6 +9,7 @@ Features:
 ## Data Preprocessing
 1. Normalization
 Use sklearn.preprocessing.MinMaxScaler to normalize the data. The MinMaxScaler fit the data into range [1,0].
+![MinMaxScaler](https://raw.githubusercontent.com/chenkenanalytic/img/master/tm-01/f02.png)
 ```python
 sc = MinMaxScaler(feature_range=(0,1))
 data = sc.fit_transform(data)
