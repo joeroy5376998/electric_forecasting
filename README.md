@@ -1,5 +1,6 @@
 # electric_forecasting
-Electric Forecasting (DSAI HW1)
+Electric Forecasting
+Bulid the LSTM model to predicing electrical operating reserve value.
 ## Data
 Features:
 1. Operating reserve
